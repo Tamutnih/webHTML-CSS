@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="topnavbar">
+        <a href="./index.html">Главная</a>
+        <a href="./catalog/catalog.html">Каталог</a>
+        <a href="#">Контакты</a>
+    </div>
+    <div class="map">
+        <div class="wrp">
+            <div class="map-box">
+                <h2>Наши контакты</h2>
+                <p>г. Екатеринбург, пл. Бахчиванджи 1</p>
+                <p><a href="tel:+7 (343) 264-77-77">+7 (999) 264-77-78</a></p>
+                <p><a href="mailto:it@koltsovo.ru">info@site.com</a></p>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <script src="//api-maps.yandex.ru/services/coverage/"></script>
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [56.750336, 60.804314],
+                zoom: 16
+            });
+            ymaps.geocode("Международный аэропорт Кольцово имени Акинфия Демидова").then(function(res) {
+                var coord = res.geoObjects.get(0).geometry.getCoordinates();
+                myMap.setCenter(coord);
+
+                var newcoord = myMap.getGlobalPixelCenter();
+                newcoord[0] -= 150;
+                myMap.setGlobalPixelCenter(newcoord);
+            });
+        }
+    </script>
+</body>
+
+</html>
